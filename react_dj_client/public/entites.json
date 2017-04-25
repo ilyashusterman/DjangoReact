@@ -1,0 +1,22 @@
+[
+    {
+        "id": 1,
+        "type": "line_item",
+        "entity_id": 222
+    },
+    {
+        "id": 2,
+        "type": "campaign",
+        "entity_id": 24155
+    },
+    {
+        "id": 3,
+        "type": "campaign",
+        "entity_id": 52356
+    },
+    {
+        "id": 4,
+        "type": "campaign",
+        "entity_id": 58562
+    }
+]

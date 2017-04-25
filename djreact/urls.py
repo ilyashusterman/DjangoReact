@@ -15,13 +15,14 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.views.generic import TemplateView
-from .api import LineItemApi, EntityApi, CampaignApi
+from .api import LineItemApi, EntityApi, CampaignApi, ManagedObjectLogEntryApi, ManagedObjectApi
 
 
 urlpatterns = [
     url(r'^entities$', EntityApi.as_view()),
     url(r'^line_items$', LineItemApi.as_view()),
     url(r'^campaigns$', CampaignApi.as_view()),
-    url(r'^app/', TemplateView.as_view(template_name='index.html')),
-
+    url(r'^manage_objects$', ManagedObjectApi.as_view()),
+    url(r'^log_entries$', ManagedObjectLogEntryApi.as_view()),
+    url(r'^app/', TemplateView.as_view(template_name='index.html'))
 ]
