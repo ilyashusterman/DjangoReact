@@ -57,7 +57,6 @@ class EntitiesTable extends React.Component {
     componentWillMount() {
      if (!this.props.debug) {
             this.getApiData(this.props.url);
-            // console.log('debug here after fetches');
         }
         else{
             this.setState({ data: this.props.url});
@@ -92,11 +91,6 @@ class EntitiesTable extends React.Component {
             enableSelectAll={this.state.enableSelectAll}
           >
             <TableRow>
-              <TableHeaderColumn colSpan='3' tooltip='Super Header' style={{textAlign: 'center'}}>
-                Super Header
-              </TableHeaderColumn>
-            </TableRow>
-            <TableRow>
               <TableHeaderColumn tooltip='id'>ID</TableHeaderColumn>
               <TableHeaderColumn tooltip='type'>Type</TableHeaderColumn>
               <TableHeaderColumn tooltip='entity_id'>Entity ID</TableHeaderColumn>
@@ -113,11 +107,6 @@ class EntitiesTable extends React.Component {
           <TableFooter
             adjustForCheckbox={this.state.showCheckboxes}
           >
-            <TableRow>
-              <TableRowColumn colSpan='3' style={{textAlign: 'center'}}>
-                Super Footer
-              </TableRowColumn>
-            </TableRow>
           </TableFooter>
         </Table>
      </MuiThemeProvider>

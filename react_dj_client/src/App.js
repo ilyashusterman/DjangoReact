@@ -9,10 +9,7 @@ class App extends Component {
     return (
       <div className='App'>
         <Dashboard />
-          <EntitiesTable url='/djreact/entities' title='entities'/>
-        <p className='App-intro'>
-          To get started, fedit <code>src/App.js</code> and save to reload.
-        </p>
+          <EntitiesTable url='/entities.json' title='entities'/>
       </div>
     );
   }
