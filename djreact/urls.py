@@ -14,9 +14,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-from .api import LineItemApi, EntityApi
+from django.views.generic import TemplateView
+from .api import LineItemApi, EntityApi, CampaignApi
+
 
 urlpatterns = [
-    url(r'^entities$', LineItemApi.as_view()),
-    url(r'^line_items$', EntityApi.as_view()),
+    url(r'^entities$', EntityApi.as_view()),
+    url(r'^line_items$', LineItemApi.as_view()),
+    url(r'^campaigns$', CampaignApi.as_view()),
+    url(r'^app/', TemplateView.as_view(template_name='index.html')),
+
 ]
