@@ -1,18 +1,18 @@
 /**
- * Created by ilya on 26/04/2017.
+ * Created by ilya on 20/04/2017.
  */
-
 import React from 'react';
 import PropTypes from 'prop-types';
-import Chart from 'chart.js'
+import {LineTooltip} from 'react-d3-tooltip';
 import axios from 'axios';
 
-class ChartLine extends React.Component {
+class Chart extends React.Component {
 
 
     constructor() {
         super();
         this.state = {
+            showChart: false,
             data: [],
             errorMessage: '',
             serverResponse: ''
@@ -25,10 +25,6 @@ class ChartLine extends React.Component {
             this.getApiData(this.props.url);
             // console.log("debug here after fetches");
         }
-        else{
-            this.setState({ data: this.props.url});
-        }
-
     }
 
     getApiData(data){
@@ -46,19 +42,19 @@ class ChartLine extends React.Component {
 
     getParsedData(data_array, field_x, field_y) {
         let new_data = [];
-        for (const currency of data_array){
-            const date_time = new Date(currency[field_x]*1000);
-            currency['time'] = date_time;
-            currency['total'] = currency[field_y];
-            new_data.push(currency);
+        for (const value of data_array){
+            const date_time = new Date(value[field_x]*1000);
+            value['time'] = date_time;
+            value['total'] = value[field_y];
+            new_data.push(value);
         }
         return data_array;
     }
 
     getMaxValue(array){
         let checkArray = [];
-        for (const currency of array){
-            checkArray.push(currency['total']);
+        for (const value of array){
+            checkArray.push(value['total']);
         }
         let number= Math.max.apply(Math, checkArray);
         if (number === Infinity){
@@ -69,8 +65,8 @@ class ChartLine extends React.Component {
 
     getMinValue(array){
         let checkArray = [];
-        for (const currency of array){
-            checkArray.push(currency['total']);
+        for (const value of array){
+            checkArray.push(value['total']);
         }
         let number =  Math.min.apply(Math, checkArray);
         if (isNaN(number)){
@@ -102,9 +98,8 @@ class ChartLine extends React.Component {
         const xScale = 'time';
         console.log(max_value, min_value);
         // rendering the chart
-        return (
-            <div>
-                <LineTooltip
+
+         let chartLine = (  <LineTooltip
                     key={data_array.toString()}
                     showXGrid={false}
                     showYGrid={false}
@@ -117,7 +112,11 @@ class ChartLine extends React.Component {
                     yRange={[max_value*10*(max_value-min_value), 0]}
                     y={this.y}
                     x={this.x}
-                />
+                />);
+
+        return (
+            <div>
+                {chartLine}
             </div>
         );
     };
@@ -129,10 +128,10 @@ class ChartLine extends React.Component {
         return d;
     }
 }
-ChartLine.propTypes = {
+Chart.propTypes = {
     url: PropTypes.string.isRequired,
     field_x: PropTypes.string.isRequired,
     field_y: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired
 };
-export default ChartLine;
+export default Chart;

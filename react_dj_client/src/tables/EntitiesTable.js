@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-// import Client from '../Client';
+// import Chart from '../timeline/Chart';
 import axios from 'axios';
 import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}
   from 'material-ui/Table';
@@ -24,6 +24,7 @@ class EntitiesTable extends React.Component {
    constructor() {
     super();
     this.state = {
+       showChart: false,
        entities: [],
        showRemoveIcon: false,
        searchValue: '',
@@ -63,15 +64,24 @@ class EntitiesTable extends React.Component {
         }
      }
 
-
+    setCurrentChart(row){
+    console.log("chart entity"+row.object_id);
+    return row.selected
+    }
+    selectCurrentChart(selectedRows){
+        console.log('hey');
+        console.log(selectedRows);
+        for (let row of selectedRows){
+            console.log(row.object_id)
+        }
+    }
   render() {
     const { entities } = this.state;
-
     const entitiesRows = entities.map((row, index) => (
               <TableRow key={index} selected={row.selected}>
                 <TableRowColumn>{index}</TableRowColumn>
                 <TableRowColumn>{row.type}</TableRowColumn>
-                <TableRowColumn>{row.entity_id}</TableRowColumn>
+                <TableRowColumn>{row.object_id}</TableRowColumn>
               </TableRow>
     ));
 
@@ -84,6 +94,7 @@ class EntitiesTable extends React.Component {
           fixedFooter={this.state.fixedFooter}
           selectable={this.state.selectable}
           multiSelectable={this.state.multiSelectable}
+          onRowSelection={this.selectCurrentChart}
         >
           <TableHeader
             displaySelectAll={this.state.showCheckboxes}
@@ -93,7 +104,7 @@ class EntitiesTable extends React.Component {
             <TableRow>
               <TableHeaderColumn tooltip='id'>ID</TableHeaderColumn>
               <TableHeaderColumn tooltip='type'>Type</TableHeaderColumn>
-              <TableHeaderColumn tooltip='entity_id'>Entity ID</TableHeaderColumn>
+              <TableHeaderColumn tooltip='object_id'>Entity ID</TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody

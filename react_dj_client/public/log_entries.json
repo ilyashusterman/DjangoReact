@@ -1,0 +1,38 @@
+  [
+    {
+        "id": 1,
+        "timestamp": "2017-02-07T15:03:23Z",
+        "status": "NEW_MARGIN",
+        "value": 60.0,
+        "action_time": "2017-04-25T15:03:25.940641Z",
+        "change_message": "Increased Margin",
+        "object_id": 1
+    },
+    {
+        "id": 2,
+        "timestamp": "2017-04-02T15:03:36Z",
+        "status": "NEW_MARGIN",
+        "value": 20.0,
+        "action_time": "2017-04-25T15:04:23.515015Z",
+        "change_message": "Margin decreased due to bad performance",
+        "object_id": 1
+    },
+    {
+        "id": 3,
+        "timestamp": "2017-02-13T15:05:27Z",
+        "status": "DEACTIVATE",
+        "value": 1.0,
+        "action_time": "2017-04-25T15:06:31.745524Z",
+        "change_message": "Deactivated line item due to use of full budget",
+        "object_id": 2
+    },
+    {
+        "id": 4,
+        "timestamp": "2017-04-17T15:06:38Z",
+        "status": "NEW_MARGIN",
+        "value": 50.0,
+        "action_time": "2017-04-25T15:07:05.906381Z",
+        "change_message": "added new margin",
+        "object_id": 2
+    }
+]
