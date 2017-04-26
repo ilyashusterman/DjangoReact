@@ -42,13 +42,15 @@ class Chart extends React.Component {
 
     getParsedData(data_array, field_x, field_y) {
         let new_data = [];
-        for (const value of data_array){
-            const date_time = new Date(value[field_x]*1000);
+        for (const value of data_array) {
+            if (value['object_id'] === this.props.entity_id) {
+            const date_time = new Date(value[field_x]);
             value['time'] = date_time;
             value['total'] = value[field_y];
             new_data.push(value);
+            }
         }
-        return data_array;
+        return new_data;
     }
 
     getMaxValue(array){
@@ -78,11 +80,13 @@ class Chart extends React.Component {
     render(){
 
         let field_y = this.props.field_y;
+        let field_x = this.props.field_x;
+        console.log('check'+this.props.entity);
         const chartSeries = [
                 {
-                        field: field_y,
-                    name: field_y,
-                    color: '#ff7f0e',
+                    field: field_y,
+                    entity: field_y,
+                    name: field_x,
                     style: {
                         "stroke-width": 2,
                         "stroke-opacity": .2,
@@ -90,11 +94,12 @@ class Chart extends React.Component {
                     }
                 }
             ];
-        let data_array = this.getParsedData(this.state.data, this.props.field_x, field_y);
+        let data_array = this.getParsedData(this.state.data, field_x, field_y);
         const max_value = this.getMaxValue(data_array);
         const min_value = this.getMinValue(data_array);
-        let width = 1000;
-        let height= 500;
+        let relativeWdith = 1000;
+        const width = relativeWdith;
+        let height= relativeWdith/2;
         const xScale = 'time';
         console.log(max_value, min_value);
         // rendering the chart
@@ -109,7 +114,7 @@ class Chart extends React.Component {
                     height={height}
                     chartSeries={chartSeries}
                     xScale={xScale}
-                    yRange={[max_value*10*(max_value-min_value), 0]}
+                    yRange={[(max_value/min_value)*(max_value-min_value), 0]}
                     y={this.y}
                     x={this.x}
                 />);
@@ -132,6 +137,9 @@ Chart.propTypes = {
     url: PropTypes.string.isRequired,
     field_x: PropTypes.string.isRequired,
     field_y: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired
+    title: PropTypes.string.isRequired,
+    entity_id: PropTypes.number.isRequired,
+    debug: PropTypes.bool,
+    entity: PropTypes.object
 };
 export default Chart;

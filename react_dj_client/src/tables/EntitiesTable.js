@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-// import Chart from '../timeline/Chart';
+import Chart from '../timeline/Chart';
 import axios from 'axios';
 import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}
   from 'material-ui/Table';
@@ -25,7 +25,9 @@ class EntitiesTable extends React.Component {
     super();
     this.state = {
        showChart: false,
+       entity: null,
        entities: [],
+       selectedRows: [],
        showRemoveIcon: false,
        searchValue: '',
        errorMessage: '',
@@ -64,15 +66,24 @@ class EntitiesTable extends React.Component {
         }
      }
 
-    setCurrentChart(row){
-    console.log("chart entity"+row.object_id);
-    return row.selected
+    setCurrentChart(){
+    let chart = null
+    if (this.state.showChart){
+        chart = <Chart
+                    url='/log_entries.json'
+                    field_x='timestamp' field_y='value'
+                    title='TimeLine' debug={false}
+                    entity_id={this.state.entity.id}
+                    entity={this.state.entity}
+        />
     }
-    selectCurrentChart(selectedRows){
-        console.log('hey');
-        console.log(selectedRows);
-        for (let row of selectedRows){
-            console.log(row.object_id)
+    return chart;
+    }
+    selectCurrentChart(rows){
+        let entitiesArray = this.state.entities
+          for (const row of rows){
+           let entity = entitiesArray[row]
+           this.setState({showChart: true, entity: entity });
         }
     }
   render() {
@@ -84,8 +95,9 @@ class EntitiesTable extends React.Component {
                 <TableRowColumn>{row.object_id}</TableRowColumn>
               </TableRow>
     ));
-
+    let entityChart = this.setCurrentChart();
     return (
+        <div>
         <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
         <Table
           style={styles.propContainer}
@@ -94,7 +106,7 @@ class EntitiesTable extends React.Component {
           fixedFooter={this.state.fixedFooter}
           selectable={this.state.selectable}
           multiSelectable={this.state.multiSelectable}
-          onRowSelection={this.selectCurrentChart}
+          onRowSelection={this.selectCurrentChart.bind(this)}
         >
           <TableHeader
             displaySelectAll={this.state.showCheckboxes}
@@ -121,6 +133,8 @@ class EntitiesTable extends React.Component {
           </TableFooter>
         </Table>
      </MuiThemeProvider>
+            {entityChart}
+        </div>
     );
   }
 }
