@@ -85,7 +85,6 @@ class Chart extends React.Component {
         const chartSeries = [
                 {
                     field: field_y,
-                    entity: field_y,
                     name: field_x,
                     style: {
                         "stroke-width": 2,
@@ -114,7 +113,7 @@ class Chart extends React.Component {
                     height={height}
                     chartSeries={chartSeries}
                     xScale={xScale}
-                    yRange={[(max_value-min_value), 0]}
+                    yRange={[7*(max_value), 0]}
                     y={this.y}
                     x={this.x}
                 />);

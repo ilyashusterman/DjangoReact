@@ -10,6 +10,7 @@ import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow,
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import darkBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import Snackbar from 'material-ui/Snackbar';
 
 
 const styles = {
@@ -24,8 +25,10 @@ class EntitiesTable extends React.Component {
    constructor() {
     super();
     this.state = {
+       open: false,
        showChart: false,
        entity: null,
+       entity_id: null,
        entities: [],
        selectedRows: [],
        showRemoveIcon: false,
@@ -65,9 +68,20 @@ class EntitiesTable extends React.Component {
             this.setState({ data: this.props.url});
         }
      }
+    handleTouchTap = () => {
+    this.setState({
+      open: true,
+    });
+    };
+
+    handleRequestClose = () => {
+    this.setState({
+      open: false,
+    });
+    };
 
     setCurrentChart(){
-    let chart = null
+    let chart = null;
     if (this.state.showChart){
         chart = <Chart
                     url='/log_entries.json'
@@ -83,12 +97,14 @@ class EntitiesTable extends React.Component {
         let entitiesArray = this.state.entities
           for (const row of rows){
            let entity = entitiesArray[row]
-           this.setState({showChart: true, entity: entity });
+           this.setState({showChart: true, entity: entity, entity_id: entity.id });
         }
+       this.handleTouchTap()
     }
   render() {
     const { entities } = this.state;
     const entitiesRows = entities.map((row, index) => (
+
               <TableRow key={index} selected={row.selected}>
                 <TableRowColumn>{index}</TableRowColumn>
                 <TableRowColumn>{row.type}</TableRowColumn>
@@ -134,6 +150,14 @@ class EntitiesTable extends React.Component {
         </Table>
      </MuiThemeProvider>
             {entityChart}
+             <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+            <Snackbar
+          open={this.state.open}
+          message='Choosed entity'
+          autoHideDuration={4000}
+          onRequestClose={this.handleRequestClose}
+        />
+                     </MuiThemeProvider>
         </div>
     );
   }
