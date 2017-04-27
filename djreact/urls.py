@@ -23,3 +23,4 @@ router.register(r'campaigns', CampaignViewSet)
 router.register(r'manage_objects', ManagedObjectViewSet)
 router.register(r'log_entries', ManagedObjectLogEntryViewSet)
 urlpatterns = router.urls
+
