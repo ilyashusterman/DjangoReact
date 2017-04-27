@@ -5,7 +5,7 @@ import React from 'react';
 import {LineTooltip} from 'react-d3-tooltip';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-
+const MAX_VALUE_CHART = 5000
 class Chart extends React.Component {
 
 
@@ -60,7 +60,7 @@ class Chart extends React.Component {
         }
         let number= Math.max.apply(Math, checkArray);
         if (number === Infinity){
-            number = 2000;
+            number = MAX_VALUE_CHART;
         }
         return number;
         }
@@ -81,7 +81,6 @@ class Chart extends React.Component {
 
         let field_y = this.props.field_y;
         let field_x = this.props.field_x;
-        console.log('check'+this.props.entity);
         const chartSeries = [
                 {
                     field: field_y,
@@ -94,13 +93,14 @@ class Chart extends React.Component {
                 }
             ];
         let data_array = this.getParsedData(this.state.data, field_x, field_y);
-        const max_value = this.getMaxValue(data_array);
-        const min_value = this.getMinValue(data_array);
-        let relativeWidth = 1000;
+        // const max_value = this.getMaxValue(data_array);
+        // const min_value = this.getMinValue(data_array);
+        let relativeWidth = 700;
         const width = relativeWidth;
         let height= relativeWidth/2;
         const xScale = 'time';
-        console.log(max_value, min_value);
+        const margins = {top: 20, right: 50, bottom: 20, left: 50};
+        const yRange = [(height - margins.top - margins.bottom), 0];
         // rendering the chart
 
          let chartLine = (  <LineTooltip
@@ -111,9 +111,10 @@ class Chart extends React.Component {
                     data={data_array}
                     width={width}
                     height={height}
+                    margins={margins}
                     chartSeries={chartSeries}
                     xScale={xScale}
-                    yRange={[7*(max_value), 0]}
+                    yRange={yRange}
                     y={this.y}
                     x={this.x}
                 />);

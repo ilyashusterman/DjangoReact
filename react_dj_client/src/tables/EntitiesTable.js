@@ -12,11 +12,11 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Snackbar from 'material-ui/Snackbar';
 import Chart from '../timeline/Chart';
 import EntityActions from '../handler/EntityActions';
+import TimeLineStep from '../timeline/TimeLineStep';
 const styles = {
   propContainer: {
-    width: 1000,
-    overflow: 'hidden',
-    margin: '20px auto 0',
+    width: 600,
+    overflow: 'hidden'
   },
 };
 class EntitiesTable extends React.Component {
@@ -43,8 +43,8 @@ class EntitiesTable extends React.Component {
        enableSelectAll: false,
        deselectOnClickaway: true,
        showCheckboxes: true,
-       height: '400px',
-       width:'40px',
+       height: '500px',
+       width:'50px',
     };
    }
 
@@ -116,7 +116,7 @@ class EntitiesTable extends React.Component {
     let entityChart = this.setCurrentChart();
     return (
         <div>
-        <div className='col-md-8'>
+        <div className='col-md-5'>
         <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
         <Table
           style={styles.propContainer}
@@ -153,7 +153,7 @@ class EntitiesTable extends React.Component {
         </Table>
      </MuiThemeProvider>
         </div>
-            <div className="col-md-8">
+            <div className="col-md-7">
             {entityChart}
                 </div>
              <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
@@ -164,10 +164,19 @@ class EntitiesTable extends React.Component {
           onRequestClose={this.handleRequestClose}
         />
                      </MuiThemeProvider>
+            <div className="col-md-6">
             <EntityActions
                 open={this.state.openActions}
                 entity_id={this.state.entity.id}
                 entity={this.state.entity}/>
+                </div>
+            <div className='col-md-4'>
+            <TimeLineStep
+                    url='/log_entries.json'
+                    field_x='timestamp' field_y='value'
+                    entity_id={this.state.entity.id}
+                    entity={this.state.entity} />
+            </div>
             </div>
     );
   }
