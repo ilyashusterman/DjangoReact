@@ -2,8 +2,8 @@
  * Created by ilya on 20/04/2017.
  */
 import React from 'react';
-import PropTypes from 'prop-types';
 import {LineTooltip} from 'react-d3-tooltip';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 
 class Chart extends React.Component {
