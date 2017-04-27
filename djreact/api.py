@@ -1,30 +1,30 @@
-from rest_framework.generics import ListAPIView
+from rest_framework.viewsets import ModelViewSet
 
 from .serializers import LineItemSerializer, EntitySerializer, \
     CampaignSerializer, ManagedObjectLogEntrySerializer, ManagedObjectSerializer
 from .models import LineItem, Entity, Campaign, ManagedObject, ManagedObjectLogEntry
 
 
-class LineItemApi(ListAPIView):
+class LineItemViewSet(ModelViewSet):
     queryset = LineItem.objects.all()
     serializer_class = LineItemSerializer
 
 
-class EntityApi(ListAPIView):
+class EntityViewSet(ModelViewSet):
     queryset = Entity.objects.all()
     serializer_class = EntitySerializer
 
 
-class CampaignApi(ListAPIView):
+class CampaignViewSet(ModelViewSet):
     queryset = Campaign.objects.all()
     serializer_class = CampaignSerializer
 
 
-class ManagedObjectApi(ListAPIView):
+class ManagedObjectViewSet(ModelViewSet):
     queryset = ManagedObject.objects.all()
     serializer_class = ManagedObjectSerializer
 
 
-class ManagedObjectLogEntryApi(ListAPIView):
+class ManagedObjectLogEntryViewSet(ModelViewSet):
     queryset = ManagedObjectLogEntry.objects.all()
     serializer_class = ManagedObjectLogEntrySerializer

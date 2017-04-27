@@ -97,24 +97,24 @@ class Chart extends React.Component {
         let data_array = this.getParsedData(this.state.data, field_x, field_y);
         const max_value = this.getMaxValue(data_array);
         const min_value = this.getMinValue(data_array);
-        let relativeWdith = 1000;
-        const width = relativeWdith;
-        let height= relativeWdith/2;
+        let relativeWidth = 1000;
+        const width = relativeWidth;
+        let height= relativeWidth/2;
         const xScale = 'time';
         console.log(max_value, min_value);
         // rendering the chart
 
          let chartLine = (  <LineTooltip
                     key={data_array.toString()}
-                    showXGrid={false}
-                    showYGrid={false}
+                    showXGrid={true}
+                    showYGrid={true}
                     title={this.props.title}
                     data={data_array}
                     width={width}
                     height={height}
                     chartSeries={chartSeries}
                     xScale={xScale}
-                    yRange={[(max_value/min_value)*(max_value-min_value), 0]}
+                    yRange={[(max_value-min_value), 0]}
                     y={this.y}
                     x={this.x}
                 />);

@@ -13,16 +13,13 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
-from django.views.generic import TemplateView
-from .api import LineItemApi, EntityApi, CampaignApi, ManagedObjectLogEntryApi, ManagedObjectApi
+from rest_framework.routers import DefaultRouter
+from .api import LineItemViewSet, EntityViewSet, CampaignViewSet, ManagedObjectLogEntryViewSet, ManagedObjectViewSet
 
-
-urlpatterns = [
-    url(r'^entities$', EntityApi.as_view()),
-    url(r'^line_items$', LineItemApi.as_view()),
-    url(r'^campaigns$', CampaignApi.as_view()),
-    url(r'^manage_objects$', ManagedObjectApi.as_view()),
-    url(r'^log_entries$', ManagedObjectLogEntryApi.as_view()),
-    url(r'^app/', TemplateView.as_view(template_name='index.html'))
-]
+router = DefaultRouter()
+router.register(r'entities', EntityViewSet)
+router.register(r'line_items', LineItemViewSet)
+router.register(r'campaigns', CampaignViewSet)
+router.register(r'manage_objects', ManagedObjectViewSet)
+router.register(r'log_entries', ManagedObjectLogEntryViewSet)
+urlpatterns = router.urls
