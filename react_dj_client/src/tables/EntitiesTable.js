@@ -11,7 +11,6 @@ import darkBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Snackbar from 'material-ui/Snackbar';
 import Chart from '../timeline/Chart';
-import Paper from 'material-ui/Paper';
 import EntityActions from '../handler/EntityActions';
 const styles = {
   propContainer: {
@@ -44,8 +43,8 @@ class EntitiesTable extends React.Component {
        enableSelectAll: false,
        deselectOnClickaway: true,
        showCheckboxes: true,
-       height: '300px',
-       width:'50px',
+       height: '400px',
+       width:'40px',
     };
    }
 
@@ -72,6 +71,7 @@ class EntitiesTable extends React.Component {
     handleTouchTap = () => {
     this.setState({
       open: true,
+      openActions: true,
       anchorEl: event.currentTarget,
     });
     };
@@ -116,6 +116,7 @@ class EntitiesTable extends React.Component {
     let entityChart = this.setCurrentChart();
     return (
         <div>
+        <div className='col-md-8'>
         <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
         <Table
           style={styles.propContainer}
@@ -151,24 +152,23 @@ class EntitiesTable extends React.Component {
           </TableFooter>
         </Table>
      </MuiThemeProvider>
+        </div>
+            <div className="col-md-8">
             {entityChart}
+                </div>
              <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
             <Snackbar
           open={this.state.open}
-          message='Choosed entity'
+          message={'Entity chosen id='.concat(this.state.entity_id)}
           autoHideDuration={4000}
           onRequestClose={this.handleRequestClose}
         />
                      </MuiThemeProvider>
-            <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-                  <Paper zDepth={1}>
             <EntityActions
                 open={this.state.openActions}
                 entity_id={this.state.entity.id}
                 entity={this.state.entity}/>
-             </Paper>
-            </MuiThemeProvider>
-        </div>
+            </div>
     );
   }
 }
