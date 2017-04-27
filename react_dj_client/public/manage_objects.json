@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "type": "line_item",
+        "object_id": 222
+    },
+    {
+        "id": 2,
+        "type": "campaign",
+        "object_id": 24155
+    },
+    {
+        "id": 3,
+        "type": "campaign",
+        "object_id": 52356
+    },
+    {
+        "id": 4,
+        "type": "campaign",
+        "object_id": 58562
+    },
+       {
+        "id": 5,
+        "type": "campaign",
+        "object_id": 999888
+    },
+    {
+        "id": 6,
+        "type": "line_item",
+        "object_id": 8887772
+    }
+]

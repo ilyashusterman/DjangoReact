@@ -3,7 +3,6 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import Chart from '../timeline/Chart';
 import axios from 'axios';
 import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}
   from 'material-ui/Table';
@@ -11,8 +10,9 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import darkBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Snackbar from 'material-ui/Snackbar';
-
-
+import Chart from '../timeline/Chart';
+import Paper from 'material-ui/Paper';
+import EntityActions from '../handler/EntityActions';
 const styles = {
   propContainer: {
     width: 1000,
@@ -25,10 +25,11 @@ class EntitiesTable extends React.Component {
    constructor() {
     super();
     this.state = {
+       openActions: false,
        open: false,
        showChart: false,
-       entity: null,
-       entity_id: null,
+       entity: {},
+       entity_id: 0,
        entities: [],
        selectedRows: [],
        showRemoveIcon: false,
@@ -71,6 +72,7 @@ class EntitiesTable extends React.Component {
     handleTouchTap = () => {
     this.setState({
       open: true,
+      anchorEl: event.currentTarget,
     });
     };
 
@@ -158,6 +160,14 @@ class EntitiesTable extends React.Component {
           onRequestClose={this.handleRequestClose}
         />
                      </MuiThemeProvider>
+            <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+                  <Paper zDepth={1}>
+            <EntityActions
+                open={this.state.openActions}
+                entity_id={this.state.entity.id}
+                entity={this.state.entity}/>
+             </Paper>
+            </MuiThemeProvider>
         </div>
     );
   }

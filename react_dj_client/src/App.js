@@ -9,7 +9,7 @@ class App extends Component {
     return (
       <div className='App'>
         <Dashboard />
-          <EntitiesTable url='/entities.json' title='entities'/>
+          <EntitiesTable url='manage_objects.json' title='entities'/>
       </div>
     );
   }
