@@ -28,7 +28,7 @@ class EntityActions extends React.Component {
                          <div>
                               <TextField
                                hintText="insert new margin"
-                             floatingLabelText="new_margin"
+                               floatingLabelText="new_margin"
                                />
                                <FlatButton label="Update" primary={true} />
                          </div>
