@@ -31,7 +31,7 @@ class TimeLineStep extends React.Component {
 
     componentWillMount(){
         // console.log("debug here before fetches");
-        if (!this.props.debug) {
+        if (!this.props.debug && this.props.entity_id) {
             this.getApiData(this.props.url);
             // console.log("debug here after fetches");
         }
@@ -108,7 +108,7 @@ TimeLineStep.propTypes = {
     url: PropTypes.string.isRequired,
     field_x: PropTypes.string.isRequired,
     field_y: PropTypes.string.isRequired,
-    entity_id: PropTypes.number.isRequired,
+    entity_id: PropTypes.number,
     entity: PropTypes.object
 };
 export default TimeLineStep;

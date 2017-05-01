@@ -21,7 +21,7 @@ class Chart extends React.Component {
 
     componentWillMount(){
         // console.log("debug here before fetches");
-        if (!this.props.debug) {
+        if (!this.props.debug && this.props.entity_id) {
             this.getApiData(this.props.url);
             // console.log("debug here after fetches");
         }
@@ -102,9 +102,8 @@ class Chart extends React.Component {
         const margins = {top: 20, right: 50, bottom: 20, left: 50};
         const yRange = [(height - margins.top - margins.bottom), 0];
         // rendering the chart
-
          let chartLine = (  <LineTooltip
-                    key={data_array.toString()}
+                    key={data_array.length.toString()}
                     showXGrid={true}
                     showYGrid={true}
                     title={this.props.title}
@@ -138,7 +137,7 @@ Chart.propTypes = {
     field_x: PropTypes.string.isRequired,
     field_y: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    entity_id: PropTypes.number.isRequired,
+    entity_id: PropTypes.number,
     debug: PropTypes.bool,
     entity: PropTypes.object
 };

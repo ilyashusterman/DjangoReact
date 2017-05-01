@@ -48,7 +48,7 @@ class EntityActions extends React.Component {
 }
 
 EntityActions.propTypes = {
-    entity_id: PropTypes.number.isRequired,
+    entity_id: PropTypes.number,
     entity: PropTypes.object
 };
 export default EntityActions;
